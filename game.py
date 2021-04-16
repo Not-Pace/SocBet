@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import get_pip
 import pygame
 import os
 import time
@@ -14,7 +13,6 @@ chessbg = pygame.image.load(os.path.join("img", "chessbg.png"))
 rect = (113,113,525,525)
 
 turn = "w"
-
 
 def menu_screen(win, name):
     global bo, chessbg
