@@ -549,4 +549,3 @@ class Rook(Piece):
                 break
 
         return moves
-

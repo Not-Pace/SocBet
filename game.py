@@ -1,46 +1,12 @@
-'''
-the main game
-author:@techwithtim
-requirements:see requirements.txt
-'''
-
 import subprocess
 import sys
 import get_pip
-
-def install(package):
-    subprocess.call([sys.executable, "-m", "pip", "install", package])
-
-try:
-    print("[GAME] Trying to import pygame")
-    import pygame
-except:
-    print("[EXCEPTION] Pygame not installed")
-
-    try:
-        print("[GAME] Trying to install pygame via pip")
-        import pip
-        install("pygame")
-        print("[GAME] Pygame has been installed")
-    except:
-        print("[EXCEPTION] Pip not installed on system")
-        print("[GAME] Trying to install pip")
-        get_pip.main()
-        print("[GAME] Pip has been installed")
-        try:
-            print("[GAME] Trying to install pygame")
-            import pip
-            install("pygame")
-            print("[GAME] Pygame has been installed")
-        except:
-            print("[ERROR 1] Pygame could not be installed")
-
-
 import pygame
 import os
 import time
 from client import Network
 import pickle
+
 pygame.font.init()
 
 board = pygame.transform.scale(pygame.image.load(os.path.join("img","board_alt.png")), (750, 750))
@@ -60,9 +26,8 @@ def menu_screen(win, name):
         small_font = pygame.font.SysFont("comicsans", 50)
         
         if offline:
-            off = small_font.render("Server Offline, Try Again Later...", 1, (255, 0, 0))
+            off = small_font.render("Server Offline, Try Again Later", 1, (255, 0, 0))
             win.blit(off, (width / 2 - off.get_width() / 2, 500))
-
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -133,7 +98,6 @@ def redraw_gameWindow(win, bo, p1, p2, color, ready):
         else:
             txt3 = font.render("THEIR TURN", 1, (255, 0, 0))
             win.blit(txt3, (width / 2 - txt3.get_width() / 2, 700))
-
     pygame.display.update()
 
 
@@ -160,9 +124,6 @@ def end_screen(win, text):
 
 
 def click(pos):
-    """
-    :return: pos (x, y) in range 0-7 0-7
-    """
     x = pos[0]
     y = pos[1]
     if rect[0] < x < rect[0] + rect[2]:
@@ -175,12 +136,10 @@ def click(pos):
 
     return -1, -1
 
-
 def connect():
     global n
     n = Network()
     return n.board
-
 
 def main():
     global turn, bo, name
@@ -224,10 +183,10 @@ def main():
                 bo = n.send("winner w")
 
         if bo.winner == "w":
-            end_screen(win, "White is the Winner!")
+            end_screen(win, "White is the winner!")
             run = False
         elif bo.winner == "b":
-            end_screen(win, "Black is the winner")
+            end_screen(win, "Black is the winner!")
             run = False
 
         for event in pygame.event.get():
