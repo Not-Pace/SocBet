@@ -68,7 +68,7 @@ async def next_matches_team(ctx, name: str, num=1):
             embed.add_field(name = "Odds in H:D:A", value = match_odds, inline= True)
             embed.add_field(name = '\u200b', value = '\u200b', inline= True)
     else:
-        embed.add_field(name = "Are you", value = "dumb?")
+        embed.add_field(name = "Are you", value = "ok? Get help")
     await ctx.send(embed = embed)
     await ctx.message.add_reaction(":python3:736715611492581429")
 

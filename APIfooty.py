@@ -88,12 +88,13 @@ class footy():
         #     d.write(results)
 
     def update_ten_fixtures(self):
-        url = "https://v2.api-football.com/fixtures/league/%d/next/10" % (league_id)
+        url = "https://v2.api-football.com/fixtures/league/%d/next/5" % (league_id)
         response = requests.request("GET", url, headers=headers)
 
         with open('fixtures.txt', 'w') as f:
-            f.write(response.txt)
+            f.write(response.text)
             parsed_json = json.loads(response.text)
+            print(response.text)
             results = parsed_json['api']['fixtures']
             return results
 
