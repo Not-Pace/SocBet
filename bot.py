@@ -37,7 +37,7 @@ async def next_matches(ctx, num=1):
         title = 'Next Matches',
         colour = discord.Colour.blue()
     )
-    embed.set_thumbnail(url="https://i2.wp.com/www.samskoncept.com/wp-content/uploads/2020/04/EPL-LOGO.jpg?resize=1024%2C576&ssl=1")
+    embed.set_thumbnail(url="https://images.unsplash.com/photo-1527871252447-4ce32da643c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80")
 
     for i in range(num):
         match_details = results[i][0] + " vs " + results[i][1]
@@ -58,7 +58,7 @@ async def next_matches_team(ctx, name: str, num=1):
         title = 'Next Match(es) for ' + name,
         colour = discord.Colour.blue()
     )
-    embed.set_thumbnail(url="https://i2.wp.com/www.samskoncept.com/wp-content/uploads/2020/04/EPL-LOGO.jpg?resize=1024%2C576&ssl=1")
+    embed.set_thumbnail(url="https://images.unsplash.com/photo-1527871252447-4ce32da643c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80")
     if len(results) != 0:
         for i in range(num):
             match_details = results[i][0] + " vs " + results[i][1]

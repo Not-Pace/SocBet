@@ -40,7 +40,7 @@ class db():
     def insert_db(self):
         list_of_fixtures = []
         results = footy1.update_seasonal_fixtures()
-        for i in range (0,380):
+        for i in range (0,306):
         # i = 0
             league_id = results[i]['league_id']
             fixture_id = results[i]['fixture_id']
@@ -61,7 +61,7 @@ class db():
         mycursor = mydb.cursor()
         # print(len(odds))
         # i=0
-        mycursor.execute("SELECT fixture_id FROM fixtures WHERE m_starts > CURRENT_DATE() AND m_starts < (CURRENT_DATE() + INTERVAL 7 DAY) AND result is NULL;")
+        mycursor.execute("SELECT fixture_id FROM fixtures WHERE m_starts > CURRENT_DATE() AND m_starts < (CURRENT_DATE() + INTERVAL 2 DAY) AND result is NULL;")
 
         fixtures_to_fetch_dirty = mycursor.fetchall()
         for i in fixtures_to_fetch_dirty:
@@ -108,6 +108,24 @@ class db():
             else:
                 continue
         mydb.commit()
+    
+    def bl_update_results(self):
+        results = footy1.bl_update_results()
+        mycursor = mydb.cursor()
+
+        for i in range (0,306):
+            if results[i]['statusShort']=="FT":
+                fixture_id = results[i]['fixture_id']
+                h_goals = int(results[i]['goalsHomeTeam'])
+                a_goals = int(results[i]['goalsAwayTeam'])
+                win = 'H' if h_goals > a_goals else 'A' if a_goals>h_goals else 'D'
+                # print(win+str(fixture_id))
+                mycursor.execute("UPDATE fixtures SET result = '%s' WHERE fixture_id = '%s' AND result is NULL"% (win, fixture_id))
+                # print(win, fixture_id)
+            else:
+                continue
+        mydb.commit()
+    
 
     def add_bets(self, home, away, side, amount, user):
         mycursor = mydb.cursor()
