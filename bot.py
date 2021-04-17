@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix='sb.')
 async def hello(ctx):
     response = 'Hello'
     await ctx.send(response)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 
 @bot.command(name='ty', help='It doesnt')
@@ -47,7 +47,7 @@ async def next_matches(ctx, num=1):
         embed.add_field(name = "Odds in H:D:A", value = match_odds, inline= True)
         embed.add_field(name = '\u200b', value = '\u200b', inline= True)
     await ctx.send(embed = embed)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 @bot.command(name='nextupfor', help="Shows x number of next games of team", aliases = ['nextmatchesfor', 'nmf'])
 async def next_matches_team(ctx, name: str, num=1):
@@ -70,7 +70,7 @@ async def next_matches_team(ctx, name: str, num=1):
     else:
         embed.add_field(name = "Are you", value = "ok? Get help")
     await ctx.send(embed = embed)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 @bot.command(name='bet', help = 'specify the Home team and Away team and then specify H/D/A and then the amount of coins')
 async def add_bet(ctx, home:str, away:str, side:str, amount:int):
@@ -78,15 +78,15 @@ async def add_bet(ctx, home:str, away:str, side:str, amount:int):
     if bet_stat:
         response = "Your bet has been placed!"
     else:
-        response = "Details incorrect, please dont be dumb"
+        response = "Details incorrect -.-\'\'"  
     await ctx.send(response)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 @bot.command(name='showcoins', help = 'shows current amount of coins')
 async def show_coins(ctx):
     response = "You have " + str(db1.show_coins(ctx.message.author)) + " coins, and have currently placed " + str(db1.show_bets(ctx.message.author)) + " bets"
     await ctx.send(response)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 @bot.command(name='showbets', help = 'shows current bets')
 async def show_current_bets(ctx):
@@ -102,6 +102,6 @@ async def show_current_bets(ctx):
         embed.add_field(name = "Details", value = "Odds "+str(deets[0]) + "; Amount " + str(deets[1])+ "; Side " + str(deets[2]) + "; Potential winnings " + str(int(deets[0]*deets[1])), inline = True)
         embed.add_field(name = '\u200b', value = '\u200b', inline= False)
     await ctx.send(embed = embed)
-    await ctx.message.add_reaction(":python3:736715611492581429")
+    await ctx.message.add_reaction(":python3:833046001475780609")
 
 bot.run(TOKEN)

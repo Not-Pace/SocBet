@@ -118,7 +118,7 @@ class db():
             mycursor.execute("SELECT fixture_id, result FROM v_next_matches WHERE home LIKE '%s' and away LIKE '%s'" % (home, away))
             print("Step2")
             f_id = mycursor.fetchone()
-            print(f_id[1])
+            # print(f_id[1])
             if(f_id[1] is None):
                 if side == "H" or side == "h":
                     mycursor.execute("SELECT home_evens FROM fixtures WHERE fixture_id = '%s'" % (f_id[0]))
