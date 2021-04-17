@@ -4,6 +4,8 @@
 /build/
 /src_py/version.py
 
+
+dbkeys.py
 # Windows prebuilt external libraries
 /prebuilt-x??
 /prebuilt_downloads
