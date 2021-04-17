@@ -7,7 +7,7 @@
 # Windows prebuilt external libraries
 /prebuilt-x??
 /prebuilt_downloads
-
+/.venv
 # macOS generated files
 .DS_Store
 
