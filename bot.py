@@ -1,23 +1,13 @@
 import os
 import discord
+from dbconnect import db
 from discord.ext import commands
 from dotenv import load_dotenv
-from dbconnect import db
-
-db.mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "root",
-    database="matchbot"
-)
-
-mycursor = db.mydb.cursor()
-mycursor.execute("DESCRIBE fixtures")
-for x in mycursor:
-    print(x)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+db1 = db()
 
 bot = commands.Bot(command_prefix='sb.')
 
@@ -35,14 +25,14 @@ async def danke(ctx):
 
 @bot.command(name='start', help="Initializes your user in the DB and gives you coins to start playing with!")
 async def init_user(ctx):
-    response = mydb.init_user(ctx.message.author)
+    response = db1.init_user(ctx.message.author)
     await ctx.send(response)
 
 @bot.command(name='nextup', help="Shows x number of next games (max x = 8)", aliases = ['nextmatches', 'nm', 'nextmatch'])
 async def next_matches(ctx, num=1):
     if num>8:
         num=8
-    results = mydb.next_match(num)
+    results = db1.next_match(num)
     embed = discord.Embed(
         title = 'Next Matches',
         colour = discord.Colour.blue()
@@ -63,7 +53,7 @@ async def next_matches(ctx, num=1):
 async def next_matches_team(ctx, name: str, num=1):
     if num>8:
         num=8
-    results = mydb.next_match_team(name, num)
+    results = db1.next_match_team(name, num)
     embed = discord.Embed(
         title = 'Next Match(es) for ' + name,
         colour = discord.Colour.blue()
@@ -84,7 +74,7 @@ async def next_matches_team(ctx, name: str, num=1):
 
 @bot.command(name='bet', help = 'specify the Home team and Away team and then specify H/D/A and then the amount of coins')
 async def add_bet(ctx, home:str, away:str, side:str, amount:int):
-    bet_stat = mydb.add_bets(home, away, side, amount, ctx.message.author)
+    bet_stat = db1.add_bets(home, away, side, amount, ctx.message.author)
     if bet_stat:
         response = "Your bet has been placed!"
     else:
@@ -94,7 +84,7 @@ async def add_bet(ctx, home:str, away:str, side:str, amount:int):
 
 @bot.command(name='showcoins', help = 'shows current amount of coins')
 async def show_coins(ctx):
-    response = "You have " + str(mydb.show_coins(ctx.message.author)) + " coins, and have currently placed " + str(mydb.show_bets(ctx.message.author)) + " bets"
+    response = "You have " + str(db1.show_coins(ctx.message.author)) + " coins, and have currently placed " + str(db1.show_bets(ctx.message.author)) + " bets"
     await ctx.send(response)
     await ctx.message.add_reaction(":python3:736715611492581429")
 
@@ -104,7 +94,7 @@ async def show_current_bets(ctx):
         title = 'Current bets for ' + str(ctx.message.author),
         colour = discord.Colour.blue()
     )
-    c_bets, fixtures = mydb.show_current_bets(ctx.message.author)
+    c_bets, fixtures = db1.show_current_bets(ctx.message.author)
     for i in range(len(c_bets)):
         match_name = fixtures[i][0][0] + " vs " + fixtures[i][0][1]
         deets = c_bets[i][2],c_bets[i][3], c_bets[i][5]
